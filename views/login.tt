@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<h3 class="text-center">请输入用户名密码</h3>
+	<br>
+	<br>
+<form class="form-horizontal" action="/login" method="post" role="form">
+  <div class="form-group form-group-sm">
+    <label class="col-sm-4 control-label" for="username">username:</label>
+    <div class="col-sm-4">
+      <input class="form-control input-lg" type="text" name=username id="username">
+    </div>
+  </div>
+  <div class="form-group form-group-sm">
+    <label class="col-sm-4 control-label" for="password">password:</label>
+    <div class="col-sm-4">
+      <input class="form-control input-lg" type="password" name="password" id="password">
+    </div>
+  </div>
+	<div class="text-right">
+	<div class="col-sm-8">
+	<button type="submit" class="btn btn-primary">确定</button>
+	</div>
+ 	</div>
+
+
+</form>
+</html>

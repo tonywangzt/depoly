@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<h3 class="text-center">mylinuxsa</h3>
+	<br>
+	<br>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2">
+				<div class=list-group>
+					<a href="/git_list" class="list-group-item">项目列表</a>			
+					<a href="/depoly/[% git_module %]" class="list-group-item">版本提交</a>			
+					<a href="/back/[% git_module %]" class="list-group-item">版本回滚</a>			
+					<a href="/merge/[% git_module %]" class="list-group-item">合并分支</a>			
+				</div>
+			</div>
+			<div class="col-md-10">
+			<form class="form-horizontal" action="/manage/depoly" method="post">
+				[% FOREACH module IN git.keys %]
+					<p>当前所在git仓库:[% module %]</p>
+					<p>请选择你要发布的分支及版本号</p>
+					[% FOREACH branch  IN git.$module.keys %]
+						[% UNLESS branch == "git_dir" %]
+						<ul class="list-unstyled">
+						<li>
+						[% branch %]<br>
+							[% FOREACH log_num IN  git.$module.$branch.keys %]
+								[% FOREACH commit IN git.$module.$branch.$log_num.commit %]				
+									<ul><li><input type="radio" name="commit" value="[% commit %]%[% branch %]"><b>版本号:</b>[% commit %]
+								[% END %]
+								[% FOREACH date IN git.$module.$branch.$log_num.Date %]				
+																	<b>提交时间:</b>[% date %]
+								[% END %]
+								[% FOREACH author IN git.$module.$branch.$log_num.Author %]				
+																	<b>提交人:</b>[% author %]</li>
+								[% END %]
+									</ul>
+							[% END %]
+						</ul>
+						[% END %]
+					[% END %]
+				[% END %]
+				<input type="hidden" name="module" value="[% git_module %]">
+				<h3>需要发布的主机</h3>
+					<div class="checkbox-inline">
+						<input type="checkbox" name="host" checked="checked" value="test">测试
+					</div>
+
+					<div class="checkbox-inline">
+						<input type="checkbox" name="host" checked="checked" value="production">正式
+					</div>
+				</br>
+				<button type="submit" class="btn btn-primary">确定</button>
+			</form>
+			</div>
+		</div>
+	</div>
+</html>

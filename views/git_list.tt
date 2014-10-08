@@ -1,0 +1,41 @@
+<div class="containser">
+<h1 class="text-center">选择进入的git库</h1>	
+	<div class="col-md-9 col-md-offset-1">
+	<table class="table table-bordered table-condensed table-hover table-striped">
+	<tr>
+		<td><p class="text-center">分支名</p></td>
+		<td><p class="text-center">提交版本号</p></td>
+		<td><p class="text-center">提交日期</p></td>
+		<td><p class="text-center">提交人</p></td>
+		<td><p class="text-center">git仓库</p></td>
+		<td><p class="text-center">仓库路径</p></td>
+	</tr>
+		[% FOREACH module IN git.keys %]
+	<tr>
+			 [% FOREACH branch IN git.$module.keys %]
+				[% UNLESS branch == "git_dir" %]
+			 				<td>[% branch %]</td>
+			 		[% FOREACH  log_num IN git.$module.$branch.keys  %] 
+			 			[% FOREACH  commit IN git.$module.$branch.$log_num.commit  %]
+			 				<td>[% commit %]</td>
+			 			[% END %]
+			 			[% FOREACH  date IN git.$module.$branch.$log_num.Date  %]
+			 				<td>[% date %]</td>
+			 			[% END %]
+			 			[% FOREACH  author IN git.$module.$branch.$log_num.Author  %]
+			 				<td>[% author %]</td>
+			 			[% END %]
+			 		[% END %]
+			 	[% END %]
+				[% IF branch == "git_dir" %]
+					[% FOREACH dir IN git.$module.$branch %]
+						<td>[% dir %]</td>
+						<td><a href=/depoly/[% module %]>[% module %]</a></td>
+					[% END %]
+				[% END %]
+			[% END %]
+	</tr>
+		[% END %]
+		</table>
+	</div>
+</div>

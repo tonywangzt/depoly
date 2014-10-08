@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<h1>发布</h1>
+	[% FOREACH  depoly_host IN depoly.depoly_host %]
+				<p>[% depoly_host %]</p>
+	[% END %]
+	[% FOREACH  mco_command_host IN depoly.mco_status.keys %]
+				<p>[% mco_command_host %] mcollective命令执行
+								
+		[% FOREACH  mco_command_status IN depoly.mco_status.$mco_command_host %]
+
+				[% mco_command_status %]	</p>
+		[% END %]
+	[% END %]
+	[% FOREACH  puppet_report_host IN depoly.report.keys %]
+				<p>[% puppet_report_host %] puppet 是否失败
+		[% FOREACH  puppet_report_status IN depoly.report.$puppet_report_host %]
+				[% puppet_report_status %]</p>
+		[% END %]
+	[% END %]
+</html>
